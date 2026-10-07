@@ -20,7 +20,12 @@ API = "https://learning.ussoccer.com/api/coach/v2/courses"
 CATEGORIES = {22: "4v4 In-Person", 21: "7v7 In-Person"}
 STATUSES = "scheduled,registration,waitlist,application"
 STATES = [s.strip().upper() for s in os.environ.get("USSOCCER_STATES", "CA").split(",") if s.strip()]
-SEEN_FILE = os.path.expanduser("~/.openclaw/workspace/state/ussoccer_seen_courses.json")
+# Stored inside the repo (rather than under the home directory) so the "seen"
+# state survives across ephemeral/cloud runs that start from a fresh clone.
+SEEN_FILE = os.environ.get(
+    "USSOCCER_SEEN_FILE",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "state", "ussoccer_seen_courses.json"),
+)
 COURSE_URL = "https://learning.ussoccer.com/coach/courses/available/{cat}/details/{id}"
 
 
